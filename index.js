@@ -2,26 +2,59 @@ const express = require("express");
 const app = express();
 app.use(express.json())
 
-const users = [{
-    id: 1,
-    name: 'Dar Levy',
-    company: '8200',
-    page: 1
-}, {
-    id: 2,
-    name: 'Bill Gates',
-    company: 'Microsoft',
-    page: 1
-}, {
-    id: 3,
-    name: 'Tim Cook',
-    company: 'Apple',
-    page: 2
-},
+const users = [
+    {
+        "id": 7,
+        "email": "michael.lawson@reqres.in",
+        "first_name": "Michael",
+        "last_name": "Lawson",
+        "avatar": "https://reqres.in/img/faces/7-image.jpg",
+        "page": 1
+    },
+    {
+        "id": 8,
+        "email": "lindsay.ferguson@reqres.in",
+        "first_name": "Lindsay",
+        "last_name": "Ferguson",
+        "avatar": "https://reqres.in/img/faces/8-image.jpg",
+        "page": 1
+    },
+    {
+        "id": 9,
+        "email": "tobias.funke@reqres.in",
+        "first_name": "Tobias",
+        "last_name": "Funke",
+        "avatar": "https://reqres.in/img/faces/9-image.jpg",
+        "page": 1
+    },
+    {
+        "id": 10,
+        "email": "byron.fields@reqres.in",
+        "first_name": "Byron",
+        "last_name": "Fields",
+        "avatar": "https://reqres.in/img/faces/10-image.jpg",
+        "page": 1
+    },
+    {
+        "id": 11,
+        "email": "george.edwards@reqres.in",
+        "first_name": "George",
+        "last_name": "Edwards",
+        "avatar": "https://reqres.in/img/faces/11-image.jpg",
+        "page": 2
+    },
+    {
+        "id": 12,
+        "email": "rachel.howell@reqres.in",
+        "first_name": "Rachel",
+        "last_name": "Howell",
+        "avatar": "https://reqres.in/img/faces/12-image.jpg",
+        "page": 2
+    }
 ]
 
-app.get('/', (req, res) => {
-    res.send('Hello world');
+app.get('/api/users', (req, res) => {
+    res.send(users);
 });
 
 app.get('/api/users/:id', (req, res) => {
