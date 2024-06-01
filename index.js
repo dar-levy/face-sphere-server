@@ -54,6 +54,12 @@ const users = [
 ]
 
 app.get('/api/users', (req, res) => {
+    const page = parseInt(req.query.page);
+    if (!isNaN(page)) {
+        const usersByPage = users.filter(user => user.page === page);
+        if (usersByPage.length === 0) return res.status(404).send('Users with the given page were not found');
+        return res.send(usersByPage);
+    }
     res.send(users);
 });
 
@@ -62,13 +68,6 @@ app.get('/api/users/:id', (req, res) => {
     const user = users.find(user => user.id === userId);
     if (!user) res.status(404).send('The user with the given ID was not found');
     else res.send(user);
-});
-
-app.get('/api/users/page/:page', (req, res) => {
-    const page = parseInt(req.params.page);
-    const usersByPage = users.filter(user => user.page === page);
-    if (usersByPage.length === 0) res.status(404).send('Users with the given page were not found');
-    else res.send(usersByPage);
 });
 
 app.post('/api/users', (req, res) => {
