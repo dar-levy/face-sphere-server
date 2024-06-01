@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json())
 
 const users = [{
     id: 1,
@@ -35,6 +36,17 @@ app.get('/api/users/page/:page', (req, res) => {
     const usersByPage = users.filter(user => user.page === page);
     if (usersByPage.length === 0) res.status(404).send('Users with the given page were not found');
     else res.send(usersByPage);
+});
+
+app.post('/api/users', (req, res) => {
+    const user = {
+        id: users.length + 1,
+        name: req.body.name,
+        city: req.body.name,
+        page: req.body.page
+    };
+    users.push(user);
+    res.send(user);
 });
 
 const port = process.env.PORT || 3000;
