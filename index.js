@@ -90,6 +90,14 @@ app.put('/api/users/:id', (req, res) => {
     res.send(user)
 });
 
+app.delete('/api/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id)
+    const user = users.find(user => user.id === userId);
+    if (!user) res.status(404).send('The user with the given ID was not found');
+    const filteredUsers = users.filter(user => user.id !== userId);
+    res.send(filteredUsers)
+});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
