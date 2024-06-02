@@ -55,13 +55,24 @@ const users = [
     }
 ]
 
-const userSchema = Joi.object({
-    email: Joi.string().email().required(),
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
-    avatar: Joi.string().uri().required(),
-    page: Joi.number().integer().required()
-});
+const userValidationSchema = {
+    first_name: Joi.string()
+        .min(2)
+        .max(50)
+        .required(),
+    last_name: Joi.string()
+        .min(2)
+        .max(50)
+        .required(),
+    email: Joi.string()
+        .min(5)
+        .max(255)
+        .required()
+        .email(),
+    avatar: Joi.string()
+        .uri()
+        .required()
+};
 
 app.get('/api/users', (req, res) => {
     const page = parseInt(req.query.page);
