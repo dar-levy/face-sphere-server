@@ -42,15 +42,18 @@ router.post('/', async (req, res) => {
     res.send(user);
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const userId = parseInt(req.params.id);
-    const user = users.find(user => user.id === userId);
-    if (!user) return res.status(404).send('The user with the given ID was not found');
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        avatar: req.body.avatar
+    })
 
-    user.company = req.body.company
+    if (!user) return res.status(404).send('The user with the given ID was not found');
     res.send(user)
 });
 
