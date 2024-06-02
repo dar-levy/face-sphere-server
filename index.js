@@ -6,6 +6,8 @@ const auth = require('./routes/auth');
 
 const app = express();
 
+require("./startup/config")();
+
 mongoose.connect('mongodb://localhost/face-sphere')
     .then(() => console.log(`Connected to mongodb://localhost/face-sphere...`))
     .catch(err => console.error('Could not connect to MongoDB...'));
