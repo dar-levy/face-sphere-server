@@ -27,7 +27,7 @@ const profileSchema = new mongoose.Schema({
     },
 });
 
-const Profile = mongoose.model("User", profileSchema);
+const Profile = mongoose.model("Profile", profileSchema);
 
 function validateProfile(profile) {
     const schema = {
