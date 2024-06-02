@@ -21,9 +21,8 @@ router.get('/', async (req, res) => {
     res.send(users);
 });
 
-router.get('/:id', (req, res) => {
-    const userId = parseInt(req.params.id)
-    const user = User.find({})
+router.get('/:id', async (req, res) => {
+    const user = await User.findById(req.params.id);
     if (!user) return res.status(404).send('The user with the given ID was not found');
     res.send(user);
 });
