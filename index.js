@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const { validate } = require("./models/user");
+
 app.use(express.json())
 
 const users = [
@@ -66,11 +68,14 @@ app.get('/api/users', (req, res) => {
 app.get('/api/users/:id', (req, res) => {
     const userId = parseInt(req.params.id)
     const user = users.find(user => user.id === userId);
-    if (!user) res.status(404).send('The user with the given ID was not found');
-    else res.send(user);
+    if (!user) return res.status(404).send('The user with the given ID was not found');
+    res.send(user);
 });
 
 app.post('/api/users', (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
     const user = {
         id: users.length + 1,
         name: req.body.name,
@@ -82,9 +87,13 @@ app.post('/api/users', (req, res) => {
 });
 
 app.put('/api/users/:id', (req, res) => {
-    const userId = parseInt(req.params.id)
+    const { error } = validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const userId = parseInt(req.params.id);
     const user = users.find(user => user.id === userId);
-    if (!user) res.status(404).send('The user with the given ID was not found');
+    if (!user) return res.status(404).send('The user with the given ID was not found');
+
     user.company = req.body.company
     res.send(user)
 });
@@ -92,11 +101,11 @@ app.put('/api/users/:id', (req, res) => {
 app.delete('/api/users/:id', (req, res) => {
     const userId = parseInt(req.params.id)
     const user = users.find(user => user.id === userId);
-    if (!user) res.status(404).send('The user with the given ID was not found');
-    const filteredUsers = users.filter(user => user.id !== userId);
-    res.send(filteredUsers)
+    if (!user) return res.status(404).send('The user with the given ID was not found');
+    const index = users.indexOf(user);
+    users.splice(index, 1);
+    res.send(user);
 });
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
