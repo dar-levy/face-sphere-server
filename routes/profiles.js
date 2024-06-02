@@ -18,6 +18,8 @@ router.get('/', async (req, res) => {
         if (profilesByPage.length === 0) return res.status(404).send('Profiles with the given page were not found');
         return res.send(profilesByPage);
     }
+
+    res.status(400).send('Page number and page size must be configured');
 });
 
 router.get('/:id', async (req, res) => {
