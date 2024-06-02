@@ -1,6 +1,7 @@
 const express = require("express");
 const {Profile, validate} = require("../models/profile");
 const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 const {User} = require("../models/user");
 const router = express.Router();
 
@@ -60,7 +61,7 @@ router.put('/:id', auth, async (req, res) => {
     res.send(profile)
 });
 
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', [auth, admin], async (req, res) => {
     const profile = await Profile.findByIdAndRemove(req.params.id);
     if (!profile) return res.status(404).send('The profile with the given ID was not found');
     res.send(profile);
