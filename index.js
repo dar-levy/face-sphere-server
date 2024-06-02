@@ -3,7 +3,7 @@ const users = require('./routes/users');
 const app = express();
 
 app.use(express.json());
-app.use('api/users', users);
+app.use('/api/users', users);
 
 
 const port = process.env.PORT || 3000;
