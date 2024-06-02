@@ -2,45 +2,6 @@ const express = require("express");
 const {User, validate} = require("../models/user");
 const router = express.Router();
 
-const users = [
-    {
-        "email": "michael.lawson@reqres.in",
-        "first_name": "Michael",
-        "last_name": "Lawson",
-        "avatar": "https://reqres.in/img/faces/7-image.jpg",
-    },
-    {
-        "email": "lindsay.ferguson@reqres.in",
-        "first_name": "Lindsay",
-        "last_name": "Ferguson",
-        "avatar": "https://reqres.in/img/faces/8-image.jpg",
-    },
-    {
-        "email": "tobias.funke@reqres.in",
-        "first_name": "Tobias",
-        "last_name": "Funke",
-        "avatar": "https://reqres.in/img/faces/9-image.jpg",
-    },
-    {
-        "email": "byron.fields@reqres.in",
-        "first_name": "Byron",
-        "last_name": "Fields",
-        "avatar": "https://reqres.in/img/faces/10-image.jpg",
-    },
-    {
-        "id": 11,
-        "email": "george.edwards@reqres.in",
-        "first_name": "George",
-        "last_name": "Edwards",
-        "avatar": "https://reqres.in/img/faces/11-image.jpg",
-    },
-    {
-        "email": "rachel.howell@reqres.in",
-        "first_name": "Rachel",
-        "last_name": "Howell",
-        "avatar": "https://reqres.in/img/faces/12-image.jpg",
-    }
-]
 
 async function getUsersByPage(pageNumber, pageSize) {
     return await User
@@ -62,7 +23,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', (req, res) => {
     const userId = parseInt(req.params.id)
-    const user = users.find(user => user.id === userId);
+    const user = User.find({})
     if (!user) return res.status(404).send('The user with the given ID was not found');
     res.send(user);
 });
