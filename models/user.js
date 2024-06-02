@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+const User = mongoose.model("User", userSchema);
 
 function validateUser(user) {
     const schema = {
@@ -51,4 +52,5 @@ function validateUser(user) {
     return Joi.validate(user, schema);
 }
 
+exports.User = User;
 exports.validate = validateUser;
