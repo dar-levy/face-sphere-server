@@ -81,11 +81,11 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
-    const result = Joi.validate(req.body, userSchema);
+    const { error } = Joi.validate(req.body, userSchema);
 
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message)
-        return
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
     }
 
     const user = {
@@ -99,7 +99,14 @@ app.post('/api/users', (req, res) => {
 });
 
 app.put('/api/users/:id', (req, res) => {
-    const userId = parseInt(req.params.id)
+    const { error } = Joi.validate(req.body, userSchema);
+
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
+    }
+
+    const userId = parseInt(req.params.id);
     const user = users.find(user => user.id === userId);
     if (!user) res.status(404).send('The user with the given ID was not found');
     user.company = req.body.company
@@ -113,7 +120,6 @@ app.delete('/api/users/:id', (req, res) => {
     const filteredUsers = users.filter(user => user.id !== userId);
     res.send(filteredUsers)
 });
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
