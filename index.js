@@ -7,6 +7,7 @@ const error = require('./middleware/error');
 
 const app = express();
 
+require("./startup/logging")();
 require("./startup/config")();
 
 mongoose.connect('mongodb://localhost/face-sphere')
