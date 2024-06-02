@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "1234",
-  "db": "mongodb://localhost/vidlyface-sphere-tests"
+  "db": "mongodb://localhost/face-sphere-tests"
 }
