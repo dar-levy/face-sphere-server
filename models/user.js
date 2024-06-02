@@ -1,4 +1,32 @@
 const Joi = require("joi");
+const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+    first_name: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 50
+    },
+    last_name: {
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 50
+    },
+    email: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 255,
+        unique: true
+    },
+    avatar: {
+        type: String,
+        required: true,
+    },
+});
+
 
 function validateUser(user) {
     const schema = {
