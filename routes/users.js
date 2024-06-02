@@ -57,12 +57,9 @@ router.put('/:id', async (req, res) => {
     res.send(user)
 });
 
-router.delete('/:id', (req, res) => {
-    const userId = parseInt(req.params.id)
-    const user = users.find(user => user.id === userId);
+router.delete('/:id', async (req, res) => {
+    const user = await User.findByIdAndRemove(req.params.id);
     if (!user) return res.status(404).send('The user with the given ID was not found');
-    const index = users.indexOf(user);
-    users.splice(index, 1);
     res.send(user);
 });
 
