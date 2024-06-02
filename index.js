@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const express = require("express");
 const app = express();
+const { validate } = require("./models/user");
 
 app.use(express.json())
 
@@ -55,25 +56,6 @@ const users = [
     }
 ]
 
-const userValidationSchema = {
-    first_name: Joi.string()
-        .min(2)
-        .max(50)
-        .required(),
-    last_name: Joi.string()
-        .min(2)
-        .max(50)
-        .required(),
-    email: Joi.string()
-        .min(5)
-        .max(255)
-        .required()
-        .email(),
-    avatar: Joi.string()
-        .uri()
-        .required()
-};
-
 app.get('/api/users', (req, res) => {
     const page = parseInt(req.query.page);
     if (!isNaN(page)) {
@@ -92,7 +74,7 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
-    const { error } = Joi.validate(req.body, userSchema);
+    const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const user = {
@@ -106,7 +88,7 @@ app.post('/api/users', (req, res) => {
 });
 
 app.put('/api/users/:id', (req, res) => {
-    const { error } = Joi.validate(req.body, userSchema);
+    const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const userId = parseInt(req.params.id);
