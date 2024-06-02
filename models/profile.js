@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
     first_name: {
         type: String,
         required: true,
@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-const User = mongoose.model("User", userSchema);
+const Profile = mongoose.model("User", profileSchema);
 
-function validateUser(user) {
+function validateProfile(profile) {
     const schema = {
         first_name: Joi.string()
             .min(2)
@@ -49,8 +49,8 @@ function validateUser(user) {
             .required()
     };
 
-    return Joi.validate(user, schema);
+    return Joi.validate(profile, schema);
 }
 
-exports.User = User;
-exports.validate = validateUser;
+exports.Profile = Profile;
+exports.validate = validateProfile;
