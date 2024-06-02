@@ -10,6 +10,8 @@ const app = express();
 require("./startup/logging")();
 require("./startup/db")();
 require("./startup/config")();
+require("./startup/validation")();
+
 
 app.use(express.json());
 app.use('/api/profiles', profiles);
