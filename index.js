@@ -8,11 +8,8 @@ const error = require('./middleware/error');
 const app = express();
 
 require("./startup/logging")();
+require("./startup/db")();
 require("./startup/config")();
-
-mongoose.connect('mongodb://localhost/face-sphere')
-    .then(() => console.log(`Connected to mongodb://localhost/face-sphere...`))
-    .catch(err => console.error('Could not connect to MongoDB...'));
 
 app.use(express.json());
 app.use('/api/profiles', profiles);
