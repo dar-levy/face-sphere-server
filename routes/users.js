@@ -53,7 +53,7 @@ const users = [
     }
 ]
 
-router.get('/api/users', (req, res) => {
+router.get('/', (req, res) => {
     const page = parseInt(req.query.page);
     if (!isNaN(page)) {
         const usersByPage = users.filter(user => user.page === page);
@@ -63,14 +63,14 @@ router.get('/api/users', (req, res) => {
     res.send(users);
 });
 
-router.get('/api/users/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const userId = parseInt(req.params.id)
     const user = users.find(user => user.id === userId);
     if (!user) return res.status(404).send('The user with the given ID was not found');
     res.send(user);
 });
 
-router.post('/api/users', (req, res) => {
+router.post('/', (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -84,7 +84,7 @@ router.post('/api/users', (req, res) => {
     res.send(user);
 });
 
-router.put('/api/users/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
@@ -96,7 +96,7 @@ router.put('/api/users/:id', (req, res) => {
     res.send(user)
 });
 
-router.delete('/api/users/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const userId = parseInt(req.params.id)
     const user = users.find(user => user.id === userId);
     if (!user) return res.status(404).send('The user with the given ID was not found');
