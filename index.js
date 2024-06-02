@@ -1,5 +1,7 @@
+const Joi = require('joi');
 const express = require("express");
 const app = express();
+
 app.use(express.json())
 
 const users = [
@@ -53,6 +55,14 @@ const users = [
     }
 ]
 
+const userSchema = Joi.object({
+    email: Joi.string().email().required(),
+    first_name: Joi.string().required(),
+    last_name: Joi.string().required(),
+    avatar: Joi.string().uri().required(),
+    page: Joi.number().integer().required()
+});
+
 app.get('/api/users', (req, res) => {
     const page = parseInt(req.query.page);
     if (!isNaN(page)) {
@@ -71,6 +81,13 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 app.post('/api/users', (req, res) => {
+    const result = Joi.validate(req.body, userSchema);
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message)
+        return
+    }
+
     const user = {
         id: users.length + 1,
         name: req.body.name,
