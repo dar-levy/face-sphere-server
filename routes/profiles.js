@@ -95,7 +95,8 @@ router.get("/", async (req, res) => {
         return res.send(profilesByPage);
     }
 
-    res.status(400).send("Page number and page size must be configured");
+    const allProfiles = await Profile.find()
+    res.send(allProfiles);
 });
 
 /**
