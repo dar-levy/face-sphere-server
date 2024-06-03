@@ -4,6 +4,14 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const router = express.Router();
 
+
+async function getProfilesByPage(pageNumber, pageSize) {
+    return await Profile
+        .find()
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize);
+}
+
 /**
  * @swagger
  * components:
