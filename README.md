@@ -46,6 +46,22 @@ http://localhost:3900/api/profiles
 
 You should see the list of profiles. That confirms that you have set up everything successfully.
 
+### Swagger API Documentation
+
+This project includes Swagger for API documentation. To view and interact with the API documentation, navigate to:
+
+http://localhost:3900/api-docs
+
+### Profile Routes
+
+The following are the profile routes available in this project:
+
+- **GET /api/profiles**: Retrieve a paginated list of profiles. Query parameters: `pageNumber`, `pageSize`.
+- **GET /api/profiles/:id**: Retrieve a profile by its ID.
+- **POST /api/profiles**: Create a new profile. Requires authentication.
+- **PUT /api/profiles/:id**: Update a profile by its ID. Requires authentication.
+- **DELETE /api/profiles/:id**: Delete a profile by its ID. Requires authentication and admin authorization.
+
 ### (Optional) Environment Variables
 
 If you look at config/default.json, you'll see a property called jwtPrivateKey. This key is used to encrypt JSON web tokens. So, for security reasons, it should not be checked into the source control. I've set a default value here to make it easier for you to get up and running with this project. For a production scenario, you should store this key as an environment variable.
