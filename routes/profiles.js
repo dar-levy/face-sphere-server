@@ -64,14 +64,14 @@ async function getProfilesByPage(pageNumber, pageSize) {
  *         name: pageNumber
  *         schema:
  *           type: integer
- *         required: true
- *         description: The page number
+ *         required: false
+ *         description: The page number (optional)
  *       - in: query
  *         name: pageSize
  *         schema:
  *           type: integer
- *         required: true
- *         description: The number of items per page
+ *         required: false
+ *         description: The number of items per page (optional)
  *     responses:
  *       200:
  *         description: The list of the profiles
@@ -86,16 +86,19 @@ async function getProfilesByPage(pageNumber, pageSize) {
  *       400:
  *         description: Bad request
  */
+
+// Express route handler for /profiles
 router.get("/", async (req, res) => {
     const pageNumber = parseInt(req.query.pageNumber);
     const pageSize = parseInt(req.query.pageSize);
-    if (!(isNaN(pageNumber) || isNaN(pageSize))) {
+
+    if (!isNaN(pageNumber) && !isNaN(pageSize)) {
         const profilesByPage = await getProfilesByPage(pageNumber, pageSize);
         if (profilesByPage.length === 0) return res.status(404).send("Profiles with the given page were not found");
         return res.send(profilesByPage);
     }
 
-    const allProfiles = await Profile.find()
+    const allProfiles = await Profile.find();
     res.send(allProfiles);
 });
 
