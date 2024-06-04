@@ -4,7 +4,6 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const router = express.Router();
 
-
 async function getProfilesByPage(pageNumber, pageSize) {
     return await Profile
         .find()
@@ -22,6 +21,7 @@ async function getProfilesByPage(pageNumber, pageSize) {
  *         - email
  *         - first_name
  *         - last_name
+ *         - avatar
  *       properties:
  *         id:
  *           type: string
@@ -40,10 +40,10 @@ async function getProfilesByPage(pageNumber, pageSize) {
  *           description: The avatar URL of the profile
  *       example:
  *         id: d5fE_asz
- *         email: john.doe@example.com
- *         first_name: John
- *         last_name: Doe
- *         avatar: http://example.com/avatar.jpg
+ *         email: steve.jobs@reqres.in
+ *         first_name: Steve
+ *         last_name: Jobs
+ *         avatar: https://pbs.twimg.com/profile_images/1155917668697985025/w4N0eB1E_400x400.jpg
  */
 
 /**
