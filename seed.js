@@ -84,7 +84,7 @@ async function seed() {
 
   await Profile.insertMany(data);
 
-  mongoose.disconnect();
+  await mongoose.disconnect();
 
   console.info("Done!");
 }
