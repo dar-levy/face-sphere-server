@@ -4,6 +4,14 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const router = express.Router();
 
+
+async function getProfilesByPage(pageNumber, pageSize) {
+    return await Profile
+        .find()
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize);
+}
+
 /**
  * @swagger
  * components:
@@ -56,14 +64,14 @@ const router = express.Router();
  *         name: pageNumber
  *         schema:
  *           type: integer
- *         required: true
- *         description: The page number
+ *         required: false
+ *         description: The page number (optional)
  *       - in: query
  *         name: pageSize
  *         schema:
  *           type: integer
- *         required: true
- *         description: The number of items per page
+ *         required: false
+ *         description: The number of items per page (optional)
  *     responses:
  *       200:
  *         description: The list of the profiles
@@ -78,16 +86,20 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
+
+// Express route handler for /profiles
 router.get("/", async (req, res) => {
     const pageNumber = parseInt(req.query.pageNumber);
     const pageSize = parseInt(req.query.pageSize);
-    if (!(isNaN(pageNumber) || isNaN(pageSize))) {
+
+    if (!isNaN(pageNumber) && !isNaN(pageSize)) {
         const profilesByPage = await getProfilesByPage(pageNumber, pageSize);
         if (profilesByPage.length === 0) return res.status(404).send("Profiles with the given page were not found");
         return res.send(profilesByPage);
     }
 
-    res.status(400).send("Page number and page size must be configured");
+    const allProfiles = await Profile.find();
+    res.send(allProfiles);
 });
 
 /**
