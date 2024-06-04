@@ -64,16 +64,16 @@ const data = [
     "avatar": "https://pbs.twimg.com/profile_images/1708942630984495104/b-GDKzEe_400x400.jpg"
   },
   {
-    "email": "george.edwards@reqres.in",
-    "first_name": "George",
-    "last_name": "Edwards",
-    "avatar": "https://reqres.in/img/faces/11-image.jpg"
+    "email": "steve.jobs@reqres.in",
+    "first_name": "Steve",
+    "last_name": "Jobs",
+    "avatar": "https://pbs.twimg.com/profile_images/1155917668697985025/w4N0eB1E_400x400.jpg"
   },
   {
-    "email": "rachel.howell@reqres.in",
-    "first_name": "Rachel",
-    "last_name": "Howell",
-    "avatar": "https://reqres.in/img/faces/12-image.jpg"
+    "email": "jensen.huang@reqres.in",
+    "first_name": "Jensen",
+    "last_name": "Huang",
+    "avatar": "https://pbs.twimg.com/profile_images/1496815845430886400/cmASyBx1_400x400.png"
   }
 ]
 
